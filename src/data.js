@@ -54,4 +54,8 @@ export const endpoints = {
 	p40: 'https://storage40.jenkins-application.workers.dev',
 	p41: 'https://storage41.hoaducviet1111.workers.dev',
 	p42: 'https://storage42.hoaducviet1111.workers.dev',
+	p43: 'https://storage43.davidpower.workers.dev',
+	p44: 'https://storage44.davidpower.workers.dev',
+	p45: 'https://storage45.viethoa-11.workers.dev',
+	p46: 'https://storage46.viethoa-11.workers.dev',
 };
