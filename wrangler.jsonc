@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "cf-storage-redirect",
 	"main": "src/index.js",
-	"compatibility_date": "2026-09-25",
+	"compatibility_date": "2026-09-29",
 	"workers_dev": false,
 	"preview_urls": false,
 	"observability": {
