@@ -5,6 +5,8 @@ export function getOrigin(hostname) {
 }
 
 export function buildKey(url, path, routes) {
+	const origin = getOrigin(url.host);
+
 	if (path === '/feed') {
 		return {
 			key: `${url.host}/${routes[path]}`,
@@ -47,7 +49,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/ads.txt') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
@@ -57,7 +59,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/robots.txt') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 24, // 1day
 			S_MAX_AGE: 60 * 60 * 24 * 365, // 1year
@@ -67,7 +69,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/api/site') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
@@ -77,7 +79,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/api/latest') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 6, // 6h
 			S_MAX_AGE: 60 * 60 * 12, // 12h
@@ -87,7 +89,6 @@ export function buildKey(url, path, routes) {
 	}
 
 	if (path === '/api/post') {
-		const origin = getOrigin(url.host);
 		const segment = url.searchParams.get('segment');
 		const slug = url.searchParams.get('slug');
 
@@ -108,7 +109,7 @@ export function buildKey(url, path, routes) {
 		const id = match[1];
 
 		return {
-			key: `${url.host}/sitemap-post/${id}.xml`,
+			key: `${origin}/${url.host}/sitemap-post/${id}.xml`,
 			api: 'default',
 			MAX_AGE: 60 * 60, // 1h
 			S_MAX_AGE: 60 * 60 * 6, // 6h
