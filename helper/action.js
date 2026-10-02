@@ -9,7 +9,7 @@ export function buildKey(url, path, routes) {
 
 	if (path === '/feed') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 5, // 5p
 			S_MAX_AGE: 60 * 10, // 10p
@@ -19,7 +19,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/sitemap.xml') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
@@ -29,7 +29,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/sitemap-page.xml') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
@@ -39,7 +39,7 @@ export function buildKey(url, path, routes) {
 	}
 	if (path === '/sitemap-category.xml') {
 		return {
-			key: `${url.host}/${routes[path]}`,
+			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
 			MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
