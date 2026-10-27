@@ -11,7 +11,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 5, // 5p
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 5, // 5p
 			S_MAX_AGE: 60 * 10, // 10p
 			STALE_WHILE_REVALIDATE: 60 * 10, // 10p
 			STALE_IF_ERROR: 60 * 60 * 24, // 1day
@@ -21,7 +22,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 12, // 12h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
@@ -31,7 +33,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 12, // 12h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
@@ -41,7 +44,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 12, // 12h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
@@ -51,7 +55,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 12, // 12h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24, // 1day
@@ -61,7 +66,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 24, // 1day
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 24, // 1day
 			S_MAX_AGE: 60 * 60 * 24 * 365, // 1year
 			STALE_WHILE_REVALIDATE: 60 * 60, // 1h
 			STALE_IF_ERROR: 60 * 60 * 24, // 1day
@@ -71,7 +77,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 12, // 12h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 12, // 12h
 			S_MAX_AGE: 60 * 60 * 24, // 1day
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
@@ -81,7 +88,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
-			MAX_AGE: 60 * 60 * 6, // 6h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60 * 6, // 6h
 			S_MAX_AGE: 60 * 60 * 12, // 12h
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
@@ -95,7 +103,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/${slug}.json`,
 			api: segment,
-			MAX_AGE: 60 * 60, // 1h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60, // 1h
 			S_MAX_AGE: 60 * 60 * 24 * 365, // 1year
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24, // 1day
@@ -111,7 +120,8 @@ export function buildKey(url, path, routes) {
 		return {
 			key: `${origin}/${url.host}/sitemap-post/${id}.xml`,
 			api: 'default',
-			MAX_AGE: 60 * 60, // 1h
+			MAX_AGE: 0,
+			A_MAX_AGE: 60 * 60, // 1h
 			S_MAX_AGE: 60 * 60 * 6, // 6h
 			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
 			STALE_IF_ERROR: 60 * 60 * 24, // 1day
