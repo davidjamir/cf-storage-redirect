@@ -22,9 +22,9 @@ export default {
 		if (!key) {
 			return new Response('Not Found', {
 				status: 404,
-				headers: {
-					'Cache-Control': 'public, max-age=600, s-maxage=1200',
-				},
+				// headers: {
+				// 	'Cache-Control': 'public, max-age=600, s-maxage=1200',
+				// },
 			});
 		}
 
