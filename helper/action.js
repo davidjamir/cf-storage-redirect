@@ -68,7 +68,7 @@ export function buildKey(url, path, routes) {
 		};
 	}
 
-	if (path === '/api/test') {
+	if (path === '/api/site') {
 		return {
 			key: `${origin}/${url.host}/${routes[path]}`,
 			api: 'default',
