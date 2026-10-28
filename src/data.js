@@ -1,4 +1,5 @@
 export const protectedRoutes = new Set(['/api/site', '/api/latest', '/api/post']);
+export const protectedRoutesTest = new Set(['/api/test']);
 
 export const routes = {
 	'/feed': 'feed.xml',
@@ -9,6 +10,7 @@ export const routes = {
 	'/robots.txt': 'robots.txt',
 	'/api/site': 'site.json',
 	'/api/latest': 'latest.json',
+	'/api/test': 'site.json',
 };
 
 export const endpoints = {

@@ -1,4 +1,5 @@
-import { protectedRoutes, endpoints, routes } from './data';
+import { protectedRoutes, protectedRoutesTest, endpoints, routes } from './data';
+import { encryptPacket } from '../helper/crypto';
 import { buildKey } from '../helper/action';
 
 export default {
@@ -36,12 +37,41 @@ export default {
 			},
 		});
 
-		response = new Response(response.body, response);
-		response.headers.set(
-			'Cache-Control',
-			`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-		);
+		if (!response.ok) {
+			return response;
+		}
 
-		return response;
+		// if (!protectedRoutes.has(path)) {
+		// 	response = new Response(response.body, response);
+
+		// 	response.headers.set(
+		// 		'Cache-Control',
+		// 		`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+		// 	);
+
+		// 	return response;
+		// }
+
+		if (!protectedRoutesTest.has(path)) {
+			response = new Response(response.body, response);
+
+			response.headers.set(
+				'Cache-Control',
+				`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+			);
+
+			return response;
+		}
+
+		const data = await response.json();
+		const encrypted = await encryptPacket(data, env.RSA_PUBLIC_KEY);
+
+		return new Response(encrypted, {
+			status: response.status,
+			headers: {
+				'Content-Type': 'text/plain; charset=utf-8',
+				'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+			},
+		});
 	},
 };
