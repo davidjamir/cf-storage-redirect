@@ -19,7 +19,7 @@ export default {
 
 			endpoints.default = env.ENDPOINT_STORAGE_GENERAL;
 
-			const { key, api, MAX_AGE, S_MAX_AGE, STALE_WHILE_REVALIDATE, STALE_IF_ERROR } = buildKey(url, path, routes);
+			const { key, api, MAX_AGE = 0, S_MAX_AGE = 0, STALE_WHILE_REVALIDATE, STALE_IF_ERROR } = buildKey(url, path, routes);
 
 			if (!key) {
 				return new Response('Not Found', {
