@@ -45,6 +45,10 @@ export async function encryptPacket(payload, publicKeyPem) {
 
 		const plaintext = new TextEncoder().encode(typeof payload === 'string' ? payload : JSON.stringify(payload));
 
+		console.log('Payload bytes:', plaintext.byteLength);
+		console.log('RSA modulus bits:', publicKey.algorithm.modulusLength);
+		console.log('RSA hash:', publicKey.algorithm.hash.name);
+
 		const encrypted = await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, publicKey, plaintext);
 
 		console.log('[encryptPacket] Step 3: OK');
