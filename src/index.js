@@ -70,7 +70,7 @@ export default {
 			status: response.status,
 			headers: {
 				'Content-Type': 'text/plain; charset=utf-8',
-				'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+				// 'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
 			},
 		});
 	},
