@@ -19,7 +19,7 @@ export default {
 
 			endpoints.default = env.ENDPOINT_STORAGE_GENERAL;
 
-			const { key, api, MAX_AGE, S_MAX_AGE, STALE_WHILE_REVALIDATE, STALE_IF_ERROR } = buildKey(url, path, routes);
+			const { key, api, MAX_AGE = 0, S_MAX_AGE, STALE_WHILE_REVALIDATE, STALE_IF_ERROR } = buildKey(url, path, routes);
 
 			if (!key) {
 				return new Response('Not Found', {
@@ -100,7 +100,7 @@ export default {
 					status: response.status,
 					headers: {
 						'Content-Type': response.headers.get('Content-Type') ?? 'text/plain; charset=utf-8',
-						'Cache-Control': 'no-store',
+						'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
 					},
 				});
 			}
