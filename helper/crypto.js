@@ -13,7 +13,7 @@ export async function encryptPacket(payload, secretKey) {
 		const key = await crypto.subtle.importKey('raw', keyBytes, 'AES-GCM', false, ['encrypt']);
 
 		//  Chuyển response thành JSON UTF-8
-		const plaintext = new TextEncoder().encode(typeof payload === 'string' ? payload : JSON.stringify(payload));
+		const plaintext = new TextEncoder().encode(typeof payload === 'string' ? JSON.stringify(JSON.parse(payload)) : JSON.stringify(payload));
 
 		const iv = crypto.getRandomValues(new Uint8Array(12));
 		const encrypted = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, plaintext);
