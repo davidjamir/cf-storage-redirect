@@ -29,7 +29,8 @@ export async function encryptPacket(payload, secretKey) {
 		console.log('[encryptPacket] Encrypted size:', encrypted.byteLength, 'bytes');
 
 		console.log('[encryptPacket] Step 4: Encoding Base64URL');
-		const result = toBase64Url(new Uint8Array(encrypted));
+		// const result = toBase64Url(new Uint8Array(encrypted));
+		const result = toBase64Url(new Uint8Array(plaintext));
 		console.log('[encryptPacket] Step 4: OK');
 
 		return result;
