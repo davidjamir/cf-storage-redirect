@@ -71,22 +71,22 @@ export default {
 					});
 				}
 
-				let data;
+				// let data;
 
-				try {
-					data = await response.json();
-				} catch (error) {
-					console.error('Invalid JSON from storage:', error);
+				// try {
+				// 	data = await response.json();
+				// } catch (error) {
+				// 	console.error('Invalid JSON from storage:', error);
 
-					return new Response('Invalid upstream response', {
-						status: 502,
-						headers: {
-							'Cache-Control': 'no-store',
-						},
-					});
-				}
+				// 	return new Response('Invalid upstream response', {
+				// 		status: 502,
+				// 		headers: {
+				// 			'Cache-Control': 'no-store',
+				// 		},
+				// 	});
+				// }
 
-				const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
+				// const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
 
 				// return new Response(encrypted, {
 				// 	status: response.status,
