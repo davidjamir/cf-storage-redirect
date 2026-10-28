@@ -19,7 +19,7 @@ export default {
 
 			endpoints.default = env.ENDPOINT_STORAGE_GENERAL;
 
-			const { key, api, MAX_AGE = 0, S_MAX_AGE, STALE_WHILE_REVALIDATE, STALE_IF_ERROR } = buildKey(url, path, routes);
+			const { key, api, MAX_AGE = 0, S_MAX_AGE = 0, STALE_WHILE_REVALIDATE, STALE_IF_ERROR } = buildKey(url, path, routes);
 
 			if (!key) {
 				return new Response('Not Found', {
@@ -29,6 +29,7 @@ export default {
 					},
 				});
 			}
+			const key1 = "nflhub.store/giants.nflhub.store/latest.json"
 
 			const target = `${endpoints[api]}/${key}`;
 
@@ -41,7 +42,7 @@ export default {
 				target,
 			});
 
-			let response = await fetch(`${endpoints[api]}/${key}`, {
+			let response = await fetch(target, {
 				method: 'GET',
 				headers: {
 					Authorization: `Bearer ${env.SECRET_STORAGE_GENERAL}`,
@@ -60,16 +61,16 @@ export default {
 			}
 
 			if (protectedRoutes.has(path)) {
-				if (!env.AES_SECRET_KEY) {
-					console.error('AES_SECRET_KEY is missing');
+				// if (!env.AES_SECRET_KEY) {
+				// 	console.error('AES_SECRET_KEY is missing');
 
-					return new Response('Internal server error', {
-						status: 500,
-						headers: {
-							'Cache-Control': 'no-store',
-						},
-					});
-				}
+				// 	return new Response('Internal server error', {
+				// 		status: 500,
+				// 		headers: {
+				// 			'Cache-Control': 'no-store',
+				// 		},
+				// 	});
+				// }
 
 				// let data;
 
