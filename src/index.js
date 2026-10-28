@@ -88,11 +88,19 @@ export default {
 
 				const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
 
-				return new Response(data, {
+				// return new Response(encrypted, {
+				// 	status: response.status,
+				// 	headers: {
+				// 		'Content-Type': 'text/plain; charset=utf-8',
+				// 		'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+				// 	},
+				// });
+
+				return new Response(response.body, {
 					status: response.status,
 					headers: {
-						'Content-Type': 'text/plain; charset=utf-8',
-						'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+						'Content-Type': response.headers.get('Content-Type') ?? 'text/plain; charset=utf-8',
+						'Cache-Control': 'no-store',
 					},
 				});
 			}
