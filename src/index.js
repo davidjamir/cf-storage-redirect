@@ -34,7 +34,7 @@ export default {
 
 			console.log({
 				request: request.url,
-				hostname: url.hostname,
+				hostname: url.host,
 				path,
 				api,
 				key,
@@ -88,7 +88,7 @@ export default {
 
 				const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
 
-				return new Response(encrypted, {
+				return new Response(data, {
 					status: response.status,
 					headers: {
 						'Content-Type': 'text/plain; charset=utf-8',
