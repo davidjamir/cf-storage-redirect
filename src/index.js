@@ -30,6 +30,17 @@ export default {
 				});
 			}
 
+			const target = `${endpoints[api]}/${key}`;
+
+			console.log({
+				request: request.url,
+				hostname: url.hostname,
+				path,
+				api,
+				key,
+				target,
+			});
+
 			let response = await fetch(`${endpoints[api]}/${key}`, {
 				method: 'GET',
 				headers: {
@@ -49,51 +60,51 @@ export default {
 			}
 
 			if (!protectedRoutes.has(path)) {
-				response = new Response(response.body, response);
+				if (!env.AES_SECRET_KEY) {
+					console.error('AES_SECRET_KEY is missing');
 
-				response.headers.set(
-					'Cache-Control',
-					`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-				);
+					return new Response('Internal server error', {
+						status: 500,
+						headers: {
+							'Cache-Control': 'no-store',
+						},
+					});
+				}
 
-				return response;
-			}
+				let data;
 
-			if (!env.AES_SECRET_KEY) {
-				console.error('AES_SECRET_KEY is missing');
+				try {
+					data = await response.json();
+				} catch (error) {
+					console.error('Invalid JSON from storage:', error);
 
-				return new Response('Internal server error', {
-					status: 500,
+					return new Response('Invalid upstream response', {
+						status: 502,
+						headers: {
+							'Cache-Control': 'no-store',
+						},
+					});
+				}
+
+				const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
+
+				return new Response(encrypted, {
+					status: response.status,
 					headers: {
-						'Cache-Control': 'no-store',
+						'Content-Type': 'text/plain; charset=utf-8',
+						'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
 					},
 				});
 			}
 
-			let data;
+			response = new Response(response.body, response);
 
-			try {
-				data = await response.json();
-			} catch (error) {
-				console.error('Invalid JSON from storage:', error);
+			response.headers.set(
+				'Cache-Control',
+				`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+			);
 
-				return new Response('Invalid upstream response', {
-					status: 502,
-					headers: {
-						'Cache-Control': 'no-store',
-					},
-				});
-			}
-
-			const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
-
-			return new Response(encrypted, {
-				status: response.status,
-				headers: {
-					'Content-Type': 'text/plain; charset=utf-8',
-					'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-				},
-			});
+			return response;
 		} catch (error) {
 			console.error('Worker error:', error);
 
