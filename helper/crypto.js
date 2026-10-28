@@ -22,23 +22,46 @@ export function toBase64Url(bytes) {
 }
 
 export async function encryptPacket(payload, publicKeyPem) {
-	// 1. Import RSA public key
-	const publicKey = await crypto.subtle.importKey(
-		'spki',
-		pemToArrayBuffer(publicKeyPem),
-		{
-			name: 'RSA-OAEP',
-			hash: 'SHA-256',
-		},
-		false,
-		['encrypt'],
-	);
+	try {
+		console.log('[encryptPacket] Step 1: Importing public key');
 
-	// 2. Chuyển response thành JSON UTF-8
+		// 1. Import RSA public key
+		const publicKey = await crypto.subtle.importKey(
+			'spki',
+			pemToArrayBuffer(publicKeyPem),
+			{
+				name: 'RSA-OAEP',
+				hash: 'SHA-256',
+			},
+			false,
+			['encrypt'],
+		);
 
-	const plaintext = new TextEncoder().encode(typeof payload === 'string' ? payload : JSON.stringify(payload));
+		console.log('[encryptPacket] Step 1: OK');
 
-	const encrypted = await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, publicKey, plaintext);
+		console.log('[encryptPacket] Step 2: Encoding payload');
 
-	return toBase64Url(new Uint8Array(encrypted));
+		// 2. Chuyển response thành JSON UTF-8
+
+		const plaintext = new TextEncoder().encode(typeof payload === 'string' ? payload : JSON.stringify(payload));
+
+		const encrypted = await crypto.subtle.encrypt({ name: 'RSA-OAEP' }, publicKey, plaintext);
+
+		console.log('[encryptPacket] Step 3: OK');
+		console.log('[encryptPacket] Encrypted size:', encrypted.byteLength, 'bytes');
+
+		console.log('[encryptPacket] Step 4: Encoding Base64URL');
+		const result = toBase64Url(new Uint8Array(encrypted));
+		console.log('[encryptPacket] Step 4: OK');
+
+		return result;
+	} catch (error) {
+		console.error('[encryptPacket] Failed:', {
+			name: error?.name,
+			message: error?.message,
+			stack: error?.stack,
+		});
+
+		throw error;
+	}
 }
