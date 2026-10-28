@@ -67,16 +67,6 @@ export function buildKey(url, path, routes) {
 			STALE_IF_ERROR: 60 * 60 * 24, // 1day
 		};
 	}
-	if (path === '/api/site') {
-		return {
-			key: `${origin}/${url.host}/${routes[path]}`,
-			api: 'default',
-			MAX_AGE: 60 * 60 * 12, // 12h
-			S_MAX_AGE: 60 * 60 * 24, // 1day
-			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
-			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
-		};
-	}
 
 	if (path === '/api/test') {
 		return {

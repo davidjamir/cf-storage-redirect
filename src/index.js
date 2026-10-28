@@ -1,20 +1,11 @@
-import { protectedRoutes, protectedRoutesTest, endpoints, routes } from './data';
+import { protectedRoutes, endpoints, routes } from './data';
 import { encryptPacket } from '../helper/crypto';
 import { buildKey } from '../helper/action';
 
 export default {
 	async fetch(request, env) {
-		function isAuthorized(req) {
-			const auth = req.headers.get('authorization');
-			return auth === `Bearer ${env.INTERNAL_SECRET}`;
-		}
-
 		const url = new URL(request.url);
 		const path = url.pathname;
-
-		if (protectedRoutes.has(path) && !isAuthorized(request)) {
-			return new Response('Unauthorized', { status: 401 });
-		}
 
 		endpoints.default = env.ENDPOINT_STORAGE_GENERAL;
 
@@ -29,7 +20,6 @@ export default {
 			});
 		}
 
-		console.log(`${endpoints[api]}/${key}`);
 		let response = await fetch(`${endpoints[api]}/${key}`, {
 			method: 'GET',
 			headers: {
@@ -41,18 +31,7 @@ export default {
 			return response;
 		}
 
-		// if (!protectedRoutes.has(path)) {
-		// 	response = new Response(response.body, response);
-
-		// 	response.headers.set(
-		// 		'Cache-Control',
-		// 		`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-		// 	);
-
-		// 	return response;
-		// }
-
-		if (!protectedRoutesTest.has(path)) {
+		if (!protectedRoutes.has(path)) {
 			response = new Response(response.body, response);
 
 			response.headers.set(
@@ -70,7 +49,7 @@ export default {
 			status: response.status,
 			headers: {
 				'Content-Type': 'text/plain; charset=utf-8',
-				// 'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+				'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
 			},
 		});
 	},
