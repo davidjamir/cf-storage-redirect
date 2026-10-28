@@ -29,7 +29,6 @@ export default {
 					},
 				});
 			}
-			const key1 = "nflhub.store/giants.nflhub.store/latest.json"
 
 			const target = `${endpoints[api]}/${key}`;
 
@@ -61,49 +60,49 @@ export default {
 			}
 
 			if (protectedRoutes.has(path)) {
-				// if (!env.AES_SECRET_KEY) {
-				// 	console.error('AES_SECRET_KEY is missing');
+				if (!env.AES_SECRET_KEY) {
+					console.error('AES_SECRET_KEY is missing');
 
-				// 	return new Response('Internal server error', {
-				// 		status: 500,
-				// 		headers: {
-				// 			'Cache-Control': 'no-store',
-				// 		},
-				// 	});
-				// }
+					return new Response('Internal server error', {
+						status: 500,
+						headers: {
+							'Cache-Control': 'no-store',
+						},
+					});
+				}
 
-				// let data;
+				let data;
 
-				// try {
-				// 	data = await response.json();
-				// } catch (error) {
-				// 	console.error('Invalid JSON from storage:', error);
+				try {
+					data = await response.json();
+				} catch (error) {
+					console.error('Invalid JSON from storage:', error);
 
-				// 	return new Response('Invalid upstream response', {
-				// 		status: 502,
-				// 		headers: {
-				// 			'Cache-Control': 'no-store',
-				// 		},
-				// 	});
-				// }
+					return new Response('Invalid upstream response', {
+						status: 502,
+						headers: {
+							'Cache-Control': 'no-store',
+						},
+					});
+				}
 
-				// const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
+				const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
 
-				// return new Response(encrypted, {
-				// 	status: response.status,
-				// 	headers: {
-				// 		'Content-Type': 'text/plain; charset=utf-8',
-				// 		'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-				// 	},
-				// });
-
-				return new Response(response.body, {
+				return new Response(encrypted, {
 					status: response.status,
 					headers: {
-						'Content-Type': response.headers.get('Content-Type') ?? 'text/plain; charset=utf-8',
+						'Content-Type': 'text/plain; charset=utf-8',
 						'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
 					},
 				});
+
+				// return new Response(response.body, {
+				// 	status: response.status,
+				// 	headers: {
+				// 		'Content-Type': response.headers.get('Content-Type') ?? 'text/plain; charset=utf-8',
+				// 		'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+				// 	},
+				// });
 			}
 
 			response = new Response(response.body, response);
