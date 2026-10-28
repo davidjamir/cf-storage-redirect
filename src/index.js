@@ -59,7 +59,7 @@ export default {
 				});
 			}
 
-			if (!protectedRoutes.has(path)) {
+			if (protectedRoutes.has(path)) {
 				if (!env.AES_SECRET_KEY) {
 					console.error('AES_SECRET_KEY is missing');
 
