@@ -64,7 +64,7 @@ export default {
 		}
 
 		const data = await response.json();
-		const encrypted = await encryptPacket(data, env.RSA_PUBLIC_KEY);
+		const encrypted = await encryptPacket(data, env.AES_SECRET_KEY);
 
 		return new Response(encrypted, {
 			status: response.status,
