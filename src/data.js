@@ -10,7 +10,7 @@ export const routes = {
 	'/robots.txt': 'robots.txt',
 	'/api/site': 'site.json',
 	'/api/latest': 'latest.json',
-	'/api/test': 'site.json',
+	'/api/test': 'latest.json',
 };
 
 export const endpoints = {
