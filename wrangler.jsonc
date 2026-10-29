@@ -33,4 +33,7 @@
 			"enabled": true,
 		},
 	},
+	"vars": {
+		"IS_CRYPTO_PAYLOAD": true,
+	},
 }

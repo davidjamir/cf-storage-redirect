@@ -32,15 +32,6 @@ export default {
 
 			const target = `${endpoints[api]}/${key}`;
 
-			console.log({
-				request: request.url,
-				hostname: url.host,
-				path,
-				api,
-				key,
-				target,
-			});
-
 			let response = await fetch(target, {
 				method: 'GET',
 				headers: {
@@ -59,7 +50,7 @@ export default {
 				});
 			}
 
-			if (protectedRoutes.has(path)) {
+			if (protectedRoutes.has(path) && env.IS_CRYPTO_PAYLOAD) {
 				if (!env.AES_SECRET_KEY) {
 					console.error('AES_SECRET_KEY is missing');
 
@@ -95,14 +86,6 @@ export default {
 						'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
 					},
 				});
-
-				// return new Response(response.body, {
-				// 	status: response.status,
-				// 	headers: {
-				// 		'Content-Type': response.headers.get('Content-Type') ?? 'text/plain; charset=utf-8',
-				// 		'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-				// 	},
-				// });
 			}
 
 			response = new Response(response.body, response);
