@@ -13,8 +13,8 @@ export function buildKey(url, path, routes) {
 			api: 'default',
 			// MAX_AGE: 60 * 5, // 5p
 			// S_MAX_AGE: 60 * 10, // 10p
-			STALE_WHILE_REVALIDATE: 60 * 10, // 10p
-			STALE_IF_ERROR: 60 * 60 * 24, // 1day
+			// STALE_WHILE_REVALIDATE: 60 * 10, // 10p
+			// STALE_IF_ERROR: 60 * 60 * 24, // 1day
 		};
 	}
 	if (path === '/sitemap.xml') {
@@ -23,8 +23,8 @@ export function buildKey(url, path, routes) {
 			api: 'default',
 			// MAX_AGE: 60 * 60 * 12, // 12h
 			// S_MAX_AGE: 60 * 60 * 24, // 1day
-			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
-			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
+			// STALE_WHILE_REVALIDATE: 60 * 20, // 20p
+			// STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
 		};
 	}
 	if (path === '/sitemap-page.xml') {
@@ -33,8 +33,8 @@ export function buildKey(url, path, routes) {
 			api: 'default',
 			// MAX_AGE: 60 * 60 * 12, // 12h
 			// S_MAX_AGE: 60 * 60 * 24, // 1day
-			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
-			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
+			// STALE_WHILE_REVALIDATE: 60 * 20, // 20p
+			// STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
 		};
 	}
 	if (path === '/sitemap-category.xml') {
@@ -43,8 +43,8 @@ export function buildKey(url, path, routes) {
 			api: 'default',
 			// MAX_AGE: 60 * 60 * 12, // 12h
 			// S_MAX_AGE: 60 * 60 * 24, // 1day
-			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
-			STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
+			// STALE_WHILE_REVALIDATE: 60 * 20, // 20p
+			// STALE_IF_ERROR: 60 * 60 * 24 * 7, // 7day
 		};
 	}
 	if (path === '/ads.txt') {
@@ -53,8 +53,8 @@ export function buildKey(url, path, routes) {
 			api: 'default',
 			// MAX_AGE: 60 * 60 * 12, // 12h
 			// S_MAX_AGE: 60 * 60 * 24, // 1day
-			STALE_WHILE_REVALIDATE: 60 * 20, // 20p
-			STALE_IF_ERROR: 60 * 60 * 24, // 1day
+			// STALE_WHILE_REVALIDATE: 60 * 20, // 20p
+			// STALE_IF_ERROR: 60 * 60 * 24, // 1day
 		};
 	}
 	if (path === '/robots.txt') {
@@ -63,8 +63,8 @@ export function buildKey(url, path, routes) {
 			api: 'default',
 			// MAX_AGE: 60 * 60 * 24, // 1day
 			// S_MAX_AGE: 60 * 60 * 24 * 365, // 1year
-			STALE_WHILE_REVALIDATE: 60 * 60, // 1h
-			STALE_IF_ERROR: 60 * 60 * 24, // 1day
+			// STALE_WHILE_REVALIDATE: 60 * 60, // 1h
+			// STALE_IF_ERROR: 60 * 60 * 24, // 1day
 		};
 	}
 
