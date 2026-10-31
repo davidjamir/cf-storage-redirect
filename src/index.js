@@ -50,6 +50,11 @@ export default {
 				});
 			}
 
+			const cacheControl =
+				!MAX_AGE && !S_MAX_AGE
+					? 'no-store'
+					: `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`;
+
 			if (protectedRoutes.has(path) && env.IS_CRYPTO_PAYLOAD) {
 				if (!env.AES_SECRET_KEY) {
 					console.error('AES_SECRET_KEY is missing');
@@ -83,17 +88,14 @@ export default {
 					status: response.status,
 					headers: {
 						'Content-Type': 'text/plain; charset=utf-8',
-						'Cache-Control': `public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
+						'Cache-Control': cacheControl,
 					},
 				});
 			}
 
 			response = new Response(response.body, response);
 
-			response.headers.set(
-				'Cache-Control',
-				`public, max-age=${MAX_AGE}, s-maxage=${S_MAX_AGE}, stale-while-revalidate=${STALE_WHILE_REVALIDATE}, stale-if-error=${STALE_IF_ERROR}`,
-			);
+			response.headers.set('Cache-Control', cacheControl);
 
 			return response;
 		} catch (error) {
